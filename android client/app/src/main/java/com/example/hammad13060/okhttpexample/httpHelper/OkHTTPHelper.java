@@ -86,7 +86,7 @@ public class OkHTTPHelper {
     }
 
     public void getObject(String url, int id, final OkHTTPHelperResponseInterface okHTTPHelperResponseInterface) {
-        url = url + "/" + id;
+        url = url + id;
         Log.d(TAG, "performing get at: \'" + url + "\'");
         final String SERVER_URL = url;
         Request request = new Request.Builder()
@@ -125,13 +125,5 @@ public class OkHTTPHelper {
                     }
                 }
         );
-    }
-
-    /**
-     * Created by hammad13060 on 26/04/16.
-     */
-    public static interface OkHTTPHelperResponseInterface {
-        public void getAllObjectsResponse(int status, JSONArray response);
-        public void getObjectResponse(int status, JSONObject response);
     }
 }

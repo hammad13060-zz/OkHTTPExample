@@ -8,11 +8,12 @@ import com.example.hammad13060.okhttpexample.Constants;
 import com.example.hammad13060.okhttpexample.GlobalApplication;
 import com.example.hammad13060.okhttpexample.httpHelper.OkHTTPHelper;
 import com.example.hammad13060.okhttpexample.R;
+import com.example.hammad13060.okhttpexample.httpHelper.OkHTTPHelperResponseInterface;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-public class AllUsersActivity extends AppCompatActivity implements OkHTTPHelper.OkHTTPHelperResponseInterface {
+public class AllUsersActivity extends AppCompatActivity implements OkHTTPHelperResponseInterface {
 
     private static final String TAG = AllUsersActivity.class.getSimpleName();
 
