@@ -1,6 +1,8 @@
 # OkHTTPExample
 A sample android client consuming rest api using [OkHttp](https://github.com/square/okhttp) library. [json-server](https://github.com/typicode/json-server "json-server") is used for quick backend
 
+## [License](https://github.com/hammad13060/OkHTTPExample/blob/master/LICENSE)
+
 # Usage
 
 ## Android Client
@@ -22,4 +24,3 @@ A sample android client consuming rest api using [OkHttp](https://github.com/squ
   - `sudo json-server --watch db.json` in case access is denied
 5. Your are good to go now
 6. Play with client
-
