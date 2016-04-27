@@ -10,4 +10,5 @@ public interface OkHTTPHelperResponseInterface {
     public void getAllObjectsResponse(int status, JSONArray response);
     public void getObjectResponse(int status, JSONObject response);
     public void createObjectResponse(int status, JSONObject response);
+    public void deleteObjectResponse(int status);
 }

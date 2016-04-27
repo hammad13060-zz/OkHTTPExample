@@ -33,7 +33,7 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Large Text"
+        android:text="creating resource"
         android:id="@+id/response_text_view"
         android:layout_alignStart="@+id/name_edit_text"
         android:layout_alignEnd="@+id/name_edit_text"

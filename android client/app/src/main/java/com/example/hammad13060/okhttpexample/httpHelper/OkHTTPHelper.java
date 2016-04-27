@@ -133,6 +133,7 @@ public class OkHTTPHelper {
     }
 
     public void createObject(String url, String name, final OkHTTPHelperResponseInterface okHTTPHelperResponseInterface) {
+        Log.d(TAG, "creating a new resource at: " + url + " with name: " + name);
         JSONObject requestObject = new JSONObject();
 
         try {
@@ -174,5 +175,37 @@ public class OkHTTPHelper {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    public void deleteObject(String url, int id, final OkHTTPHelperResponseInterface okHTTPHelperResponseInterface) {
+        url = url + id;
+        Log.d(TAG, "deleting resource at: " + url);
+
+        Request request = new Request.Builder()
+                .url(url)
+                .delete()
+                .build();
+        mOkHttpClient.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Log.d(TAG, "connection with server failed");
+                if (okHTTPHelperResponseInterface != null) {
+                    okHTTPHelperResponseInterface.deleteObjectResponse(STATUS_FAILED);
+                }
+                call.cancel();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (response.code() == 200) {
+                    Log.d(TAG, "DELETE action successful");
+                    okHTTPHelperResponseInterface.deleteObjectResponse(STATUS_SUCCESS);
+                } else {
+                    Log.d(TAG, "DELETE action failed");
+                    okHTTPHelperResponseInterface.deleteObjectResponse(STATUS_FAILED);
+                }
+                call.cancel();
+            }
+        });
     }
 }

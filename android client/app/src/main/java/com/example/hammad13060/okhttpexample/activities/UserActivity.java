@@ -47,9 +47,7 @@ public class UserActivity extends AppCompatActivity implements OkHTTPHelperRespo
     }
 
     @Override
-    public void getAllObjectsResponse(int status, JSONArray response) {
-
-    }
+    public void getAllObjectsResponse(int status, JSONArray response) {}
 
     @Override
     public void getObjectResponse(int status, JSONObject response) {
@@ -69,6 +67,11 @@ public class UserActivity extends AppCompatActivity implements OkHTTPHelperRespo
 
     @Override
     public void createObjectResponse(int status, JSONObject response) {
+
+    }
+
+    @Override
+    public void deleteObjectResponse(int status) {
 
     }
 }

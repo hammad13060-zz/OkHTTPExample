@@ -29,4 +29,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, UserActivity.class);
         startActivity(intent);
     }
+
+    public void onDeleteUserClick(View view) {
+        Intent intent = new Intent(this, DeleteUserActivity.class);
+        startActivity(intent);
+    }
 }

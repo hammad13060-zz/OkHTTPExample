@@ -2,7 +2,7 @@ package com.example.hammad13060.okhttpexample.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,33 +16,38 @@ import com.example.hammad13060.okhttpexample.httpHelper.OkHTTPHelperResponseInte
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.w3c.dom.Text;
 
-import java.util.StringTokenizer;
+public class DeleteUserActivity extends AppCompatActivity implements OkHTTPHelperResponseInterface {
 
-public class AddUserActivity extends AppCompatActivity implements OkHTTPHelperResponseInterface {
+    private static final String TAG = DeleteUserActivity.class.getSimpleName();
 
-    GlobalApplication globalApplication = null;
+    private GlobalApplication globalApplication = null;
 
-    EditText nameEditText = null;
-    TextView responseTextView = null;
+    private EditText idEditText = null;
+    private TextView responseTextView = null;
+    private int id = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_user);
+        setContentView(R.layout.activity_delete_user);
 
-        nameEditText = (EditText)findViewById(R.id.name_edit_text);
+        idEditText = (EditText)findViewById(R.id.id_edit_text);
         responseTextView = (TextView)findViewById(R.id.response_text_view);
 
         globalApplication = (GlobalApplication)getApplicationContext();
+
     }
 
-    public void onSubmitDataClick(View view) {
-        String name = nameEditText.getText().toString();
-        if (!TextUtils.isEmpty(name)) {
-            globalApplication.getOkHTTPHelper().createObject(Constants.SERVER_URL, name, this);
-        } else {
-            Toast.makeText(getApplicationContext(), "name cannot be empty", Toast.LENGTH_SHORT);
+    public void onDeleteUserClick(View view) {
+        try {
+            id = Integer.parseInt(idEditText.getText().toString());
+            globalApplication.getOkHTTPHelper().deleteObject(Constants.SERVER_URL, id, this);
+        } catch (NumberFormatException e) {
+            Log.d(TAG, "invalid id entered");
+            Toast.makeText(getApplicationContext(), "enter an non negative integer value as id ", Toast.LENGTH_SHORT);
+            e.printStackTrace();
         }
     }
 
@@ -58,23 +63,20 @@ public class AddUserActivity extends AppCompatActivity implements OkHTTPHelperRe
 
     @Override
     public void createObjectResponse(int status, JSONObject response) {
-        final int STATUS = status;
-        final JSONObject RESPONSE = response;
 
-        runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                if (STATUS == OkHTTPHelper.STATUS_SUCCESS) {
-                    responseTextView.setText(RESPONSE.toString());
-                } else {
-                    responseTextView.setText("not able to create resource on server");
-                }
-            }
-        });
     }
 
     @Override
-    public void deleteObjectResponse(int status) {
-
+    public void deleteObjectResponse(final int status) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                if (status == OkHTTPHelper.STATUS_SUCCESS) {
+                    responseTextView.setText("DELETE on /users/" + id + " succeeded");
+                } else {
+                    responseTextView.setText("DELETE on /users/" + id + " failed");
+                }
+            }
+        });
     }
 }
