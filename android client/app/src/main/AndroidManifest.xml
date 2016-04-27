@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.AllUsersActivity" />
-        <activity android:name=".activities.UserActivity"></activity>
+        <activity android:name=".activities.UserActivity" />
+        <activity android:name=".activities.AddUserActivity"></activity>
     </application>
 
 </manifest>

@@ -16,7 +16,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onAddUserClick(View view) {
-
+        Intent intent = new Intent(this, AddUserActivity.class);
+        startActivity(intent);
     }
 
     public void onGetAllUsersClick(View view) {

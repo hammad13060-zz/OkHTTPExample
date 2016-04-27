@@ -66,4 +66,9 @@ public class UserActivity extends AppCompatActivity implements OkHTTPHelperRespo
             }
         });
     }
+
+    @Override
+    public void createObjectResponse(int status, JSONObject response) {
+
+    }
 }

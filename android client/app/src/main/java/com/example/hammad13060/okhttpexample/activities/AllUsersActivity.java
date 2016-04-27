@@ -58,4 +58,9 @@ public class AllUsersActivity extends AppCompatActivity implements OkHTTPHelperR
     @Override
     public void getObjectResponse(int status, JSONObject response) {
     }
+
+    @Override
+    public void createObjectResponse(int status, JSONObject response) {
+
+    }
 }

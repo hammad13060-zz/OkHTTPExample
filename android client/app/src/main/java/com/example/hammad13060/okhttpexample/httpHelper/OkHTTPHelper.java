@@ -10,8 +10,10 @@ import java.io.IOException;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 /**
@@ -23,6 +25,9 @@ public class OkHTTPHelper {
     //constants
     public static final int STATUS_FAILED = 0;
     public static final int STATUS_SUCCESS = 1;
+
+    //media type for json request response
+    public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 
     //singleton instance of http client
     private static OkHttpClient mOkHttpClient = null;
@@ -125,5 +130,49 @@ public class OkHTTPHelper {
                     }
                 }
         );
+    }
+
+    public void createObject(String url, String name, final OkHTTPHelperResponseInterface okHTTPHelperResponseInterface) {
+        JSONObject requestObject = new JSONObject();
+
+        try {
+            requestObject.put("name", name);
+            RequestBody body = RequestBody.create(JSON, requestObject.toString());
+            Request request = new Request.Builder()
+                    .url(url)
+                    .post(body)
+                    .build();
+
+            mOkHttpClient.newCall(request).enqueue(new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    Log.d(TAG, "connection with server failed");
+                    if (okHTTPHelperResponseInterface != null) {
+                        okHTTPHelperResponseInterface.createObjectResponse(STATUS_FAILED, new JSONObject());
+                    }
+                    call.cancel();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    Log.d(TAG, "response from the server obtained");
+                    if (okHTTPHelperResponseInterface != null) {
+                        try {
+                            JSONObject jsonResponse = new JSONObject(new String(response.body().bytes()));
+                            okHTTPHelperResponseInterface.createObjectResponse(STATUS_SUCCESS, jsonResponse);
+                            Log.d(TAG, "response in proper format");
+                        } catch (JSONException e) {
+                            okHTTPHelperResponseInterface.createObjectResponse(STATUS_FAILED, new JSONObject());
+                            Log.d(TAG, "response not in proper format");
+                            e.printStackTrace();
+                        }
+                    }
+                    call.cancel();
+                }
+            });
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
