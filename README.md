@@ -3,6 +3,12 @@ A sample android client consuming rest api using [OkHttp](https://github.com/squ
 
 ## [License](https://github.com/hammad13060/OkHTTPExample/blob/master/LICENSE)
 
+# REST api
+- `GET /users`
+- `GET /users/{id}`
+- `POST /users`
+- `PUT /users/{id}`
+
 # Usage
 
 ## Android Client
